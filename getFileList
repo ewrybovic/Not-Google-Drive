@@ -1,0 +1,82 @@
+<?php		
+		$fileList = array();
+		$username;
+		
+		// check if username was a value provided
+		if( !isset($_GET['username']) ) { 
+		
+			// if not, we're in test
+			$username = 'test';
+		
+		} else {
+			// if username was provided, it would be encoded
+			// therefore, must decode username
+			$encodedUsername = $_GET['username'];
+			
+			// perform decryption
+			// ...
+			// TODO: insert decryption script
+			// $decryptedUsername = $encodedUsername
+			
+			
+			// then, assign decrypted username to this username
+			//$this->username = $decryptedUsername;
+			
+		}
+		
+		// from username, get root directory
+		$rootdirectory = '/userDirectories/';
+		$rootdirectory .= $username;
+		
+		// check if directory exists
+		// this should not happen in production, but might
+		// echo is_dir($rootdirectory);
+
+		if( is_dir($rootdirectory) ) {
+			// get a handle to the root directory
+			if( $dhandle = opendir($rootdirectory) ) {
+				
+				// iterate through files to get their names
+				while(($file = readdir($dhandle)) !== false) {
+ 						$fileList[] = $file;
+				}
+				
+				sort($fileList);
+				
+				// if the first two entries are directory references
+				// remove them
+				if (($location = array_search("..", $fileList)) !== false ){
+					unset($fileList[$location]);
+
+			}
+				if (($location = array_search(".", $fileList)) !== false ){
+					unset($fileList[$location]);
+
+				}
+			}
+		}
+
+		// at this point the files would be returned, but for test, this is just printing to CLI
+		echo "Files:\n";
+		
+		
+		// construct the JSON object
+		$i = 0;
+		$JSONobject = "{\r\n";
+		foreach($fileList as $item)
+		{ 
+			echo $item;
+			if ( $i == (count($fileList) - 1) )
+				$JSONobject .= "\tfileName: $item\r\n";
+			else
+				$JSONobject .= "\tfileName: $item,\r\n";
+			echo "\r\n"; 
+			
+			$i++;
+		}
+		$JSONobject .= "}";
+		
+		// 'return' the jsonobject
+		echo "\r\n$JSONobject\r\n";
+		
+?>
