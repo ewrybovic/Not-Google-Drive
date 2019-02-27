@@ -21,37 +21,47 @@ MSG:
 	$connectToDB = mysqli_select_db($link, $dbName) or die ("Unable to connect to host $hostName");
 
 	// get information from forms and prep for db queary
-	$uName = $uEmail = $uPassword = "";
+	$uName = $uEmail = $pwHash = "";
 	$values = array();
 	// to check in the end of any of the fields were missing, might need to expand this one
 	$missingField = false;
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
+		echo((string)$_POST["inputUsername"]);
+		echo("||");
+		echo((string)$_POST["inputEmail"]);
+		echo("||");
+		echo((string)$_POST["inputPassword"]);
+		echo("||");
+		echo((string)$_POST["inputConfirmPw"]);
+		echo("||");
 		echo ("Request method is post...");
 		// check user name is valid and enterd 
-		if (empty($POST["inputName"]))
+		if (empty($_POST["inputUsername"]))
 		{
 			// tell page that user name is required
-			$missField = True;
+			echo("Empty Username");
+			$missingField = True;
 		} else
 		{
-			$uName = clean_input((string)$_POST['inputName']);
+			$uName = clean_input((string)$_POST['inputUsername']);
 			// check if name only has letter and numbers
-			if (!preg_match("/^[a-zA-Z][0-9]*$/",$uName)) 
+			if (!preg_match("/^[a-zA-Z0-9]*$/",$uName)) 
 			{
 				echo("Only letters and numbers allowed |X");
 			}
 		}
 		
 		// check user email is valid and enterd 
-		if (empty($POST["inputEmail"]))
+		if (empty($_POST["inputEmail"]))
 		{
 			// tell page that user name is required
-			$missField = True;
+			echo("Empty email");
+			$missingField = True;
 		} else
 		{
 			$uEmail = clean_input((string)$_POST['inputEmail']);
-			// check if name only has letter and numbers
+			// check if nvalide email
 			if (!filter_var($uEmail,FILTER_VALIDATE_EMAIL)) 
 			{
 				echo("Invalid Email format |X");
@@ -59,32 +69,33 @@ MSG:
 		}
 
 		// check user pw is valid and enterd 
-		if (empty($POST["inputPw"]))
+		if (empty($_POST["inputPassword"]))
 		{
 			// tell page that user name is required
-			$missField = True;
+			echo("empty password || confirm pw");
+			$missingField = True;
 		} else
 		{
-			$uP = password_hash(clean_input((string)$_POST['inputPw']), PASSWORD_DEFAULT);
-			$uConfP = password_hash(clean_input((string)$_POST['inputConfirmPw']), PASSWORD_DEFAULT);
-			// check if name only has letter and numbers
-			if ($uP == $uConfP) 
+			$pwHash = password_hash(clean_input((string)$_POST['inputPassword']), PASSWORD_DEFAULT); //generate a hash for this 
+			// check if hashed password is equal to the hash of the confirm password 
+			if (!password_verify(clean_input((string)$_POST['inputConfirmPw']), $pwHash)) 
 			{
 				echo("passwords do not match |X");
+				$missingField = True;
 			}
 		}
 	}
 	//read sql command
-	//$values = array((string)$_POST['inputName'], (string)$_POST['inputEmail'], (string)$_POST['inputPassword'], $filePath);
-	if (!$missField)
+	//$values = array((string)$_POST['inputUsername'], (string)$_POST['inputEmail'], (string)$_POST['inputPassword'], $filePath);
+	if (!$missingField)
 	{
 		//set up values to be in query
 		$filePath = "/home/" . $uName;
-		$values = array_push($values, $uName, $uEmail, $uP, $filePath);
+		$values = array($uName, $uEmail, $pwHash, $filePath);
 		$positions = array("$1", "$2", "$3", "$4");
 
 		//read querya nd replace values with form ones
-		$getString = file_get_contents("AddUserTable.sql");
+		$getString = file_get_contents("sql/AddUserTable.sql");
 		$SQL = str_replace($positions, $values, $getString);
 
 		echo ($SQL);
@@ -93,11 +104,11 @@ MSG:
 		echo ("Done |X");
 	} else
 	{
-		$values = array_push($values, $uName, $uEmail, $uP, $filePath);
-		print_r ("Values: " + (string)$values);
-		echo ("missing field |X");
+		echo ("invalid form data|X");
 	}
+
 	mysqli_close($link);
+
 	function clean_input($data)
 	{
 		$data = trim($data);
