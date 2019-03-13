@@ -62,19 +62,21 @@
 		
 		// construct the JSON object
 		$i = 0;
-		$JSONobject = "{\r\n";
+		$JSONobject = "{\r\n\tnumFiles: ";
+		$JSONobject .= count($fileList);
+		$JSONobject .= ",\r\n\tfiles: [";
 		foreach($fileList as $item)
 		{ 
 			echo $item;
 			if ( $i == (count($fileList) - 1) )
-				$JSONobject .= "\tfileName: $item\r\n";
+				$JSONobject .= "$item]";
 			else
-				$JSONobject .= "\tfileName: $item,\r\n";
+				$JSONobject .= "$item, ";
 			echo "\r\n"; 
 			
 			$i++;
 		}
-		$JSONobject .= "}";
+		$JSONobject .= "\r\n}";
 		
 		// 'return' the jsonobject
 		echo "\r\n$JSONobject\r\n";
