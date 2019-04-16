@@ -1,1 +1,1 @@
-INSERT INTO users (username, password, email, folderLocation) values('$1', '$2', '$3', '$4');
+INSERT INTO users (username, password, email, folderLocation) values('uname', 'pwhash', 'uemail', 'fp');

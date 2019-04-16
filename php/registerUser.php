@@ -49,6 +49,7 @@ MSG:
 			if (!preg_match("/^[a-zA-Z0-9]*$/",$uName)) 
 			{
 				echo("Only letters and numbers allowed |X");
+				$missingField = True;
 			}
 		}
 		
@@ -65,6 +66,7 @@ MSG:
 			if (!filter_var($uEmail,FILTER_VALIDATE_EMAIL)) 
 			{
 				echo("Invalid Email format |X");
+				$missingField = True;
 			}
 		}
 
@@ -83,6 +85,9 @@ MSG:
 				echo("passwords do not match |X");
 				$missingField = True;
 			}
+			else{ # stores plain text password, need to update login.php for hashed pw
+				$pwHash = clean_input((string)$_POST['inputConfirmPw']);
+			}
 		}
 	}
 	//read sql command
@@ -91,13 +96,13 @@ MSG:
 	{
 		//set up values to be in query
 		$filePath = "/home/" . $uName;
-		$values = array($uName, $uEmail, $pwHash, $filePath);
-		$positions = array("$1", "$2", "$3", "$4");
+		$values = array($uName, $pwHash, $uEmail, $filePath);
+		$positions = array("uname", "pwhash", "uemail", "fp");
 
 		//read querya nd replace values with form ones
 		$getString = file_get_contents("sql/AddUserTable.sql");
 		$SQL = str_replace($positions, $values, $getString);
-
+		
 		echo ($SQL);
 		$Query = mysqli_query($link, $SQL) or die("Unable to run query $SQL");	
 		
