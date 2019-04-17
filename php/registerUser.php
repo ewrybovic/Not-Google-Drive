@@ -100,7 +100,7 @@ MSG:
 		$positions = array("uname", "pwhash", "uemail", "fp");
 
 		//read querya nd replace values with form ones
-		$getString = file_get_contents("sql/AddUserTable.sql");
+		$getString = file_get_contents("../sql/AddUserTable.sql");
 		$SQL = str_replace($positions, $values, $getString);
 		
 		echo ($SQL);
