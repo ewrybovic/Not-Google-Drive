@@ -40,8 +40,9 @@
 
     $useremail = clean_input($_POST['useremail']);
     $password = clean_input( $_POST['password']);
-
-    $sql = "SELECT * FROM `users` WHERE `email` LIKE '$useremail' AND `pass` LIKE '$password'";
+    
+    //$sql = "SELECT * FROM `users` WHERE `email` LIKE '$useremail' AND `pass` LIKE '$password'";
+    $sql = "SELECT * FROM `users` WHERE `email` LIKE '$useremail' AND `password` LIKE '$password'";
     $result=mysqli_query($link, $sql);
     $num_rows=mysqli_num_rows($result);
 
