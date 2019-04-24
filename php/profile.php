@@ -15,5 +15,14 @@ echo $_SESSION['login_pass'];
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">
 </form>
+
+<?php
+  //user directory name files;
+  $files = scandir("../users/");
+  for ($i=2; $i < count($files) ; $i++) {
+    // add $user in session
+    echo "<p><a href= \"../users/" .$files[$i]. "\"download>" . $files[$i]. "</a>";
+  }
+?>
 </head>
 </html>
