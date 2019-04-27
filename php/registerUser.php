@@ -113,6 +113,7 @@ MSG:
 		}
 		else{
 			echo ("Done |X");
+			mkdir("../users/" . $_POST['inputUsername']);
 			header("location:../login.html");
 		}
 

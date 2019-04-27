@@ -2,10 +2,12 @@
 /*
 * Uploads a file from the clients computer to the server
 */
+session_start();
 
 // Get current directory of php script
 //$target_dir = getcwd();// . "/users/";
-$target_dir = "/var/www/html/users/";
+$target_dir = "/var/www/html/users/". $_SESSION['login_user'] . "/";
+echo $target_dir;
 //$target_dir = "/home/server/Desktop/";
 
 // Concatinate the target directory and the file name
