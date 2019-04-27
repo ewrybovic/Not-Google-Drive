@@ -38,18 +38,18 @@
 
   if (isset($_POST['login_user'])) {
 
-    $useremail = clean_input($_POST['useremail']);
+    $username = clean_input($_POST['username']);
     $password = clean_input( $_POST['password']);
-    
+
     //$sql = "SELECT * FROM `users` WHERE `email` LIKE '$useremail' AND `pass` LIKE '$password'";
-    $sql = "SELECT * FROM `users` WHERE `email` LIKE '$useremail' AND `password` LIKE '$password'";
+    $sql = "SELECT * FROM `users` WHERE `username` LIKE '$username' AND `password` LIKE '$password'";
     $result=mysqli_query($link, $sql);
     $num_rows=mysqli_num_rows($result);
 
     echo $num_rows;
     if($num_rows>0) {
       echo "found users";
-      $_SESSION['login_user'] = $useremail;
+      $_SESSION['login_user'] = $username;
       $_SESSION['login_pass'] = $password;
       header("location:profile.php");
     }
