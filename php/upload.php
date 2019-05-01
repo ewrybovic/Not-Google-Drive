@@ -7,7 +7,6 @@ session_start();
 // Get current directory of php script
 //$target_dir = getcwd();// . "/users/";
 $target_dir = "/var/www/html/users/". $_SESSION['login_user'] . "/";
-echo $target_dir;
 //$target_dir = "/home/server/Desktop/";
 
 // Concatinate the target directory and the file name
@@ -26,6 +25,10 @@ if(isset($_POST["submit"]))
 	if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file_dir))
 	{
 		echo "<p>The file " . basename($_FILES['fileToUpload']['name']) . " has been uploaded<p>";
+
+		// Redirect back to profile page
+		header("Location:profile.php");
+		exit();
 	}
 	else
 	{
