@@ -5,9 +5,9 @@
 
 // Get current directory of php script
 //$target_dir = getcwd();// . "/users/";
-$target_dir = "/var/www/html/users/";
+//$target_dir = "/var/www/html/users/";
 //$target_dir = "/home/server/Desktop/";
-
+$target_dir = "/var/www/html/users/test/test/";
 // Concatinate the target directory and the file name
 $target_file_dir = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
