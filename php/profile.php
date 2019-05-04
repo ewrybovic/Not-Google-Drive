@@ -1,28 +1,34 @@
 <?php
-include ('login.php');
-if((!isset($_SESSION['login_user']))||(!isset($_SESSION['login_pass']))){
-  header("location: ../index.php");
-}
-echo $_SESSION['login_user'];
-echo $_SESSION['login_pass'];
-?>
-<!DOCTYPE html>
-<html>
-<head>
-  <a href = "logout.php"> LogOut</a></b>
-  <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
-</form>
+// include ('login.php');
 
-<?php
-  //user directory name files;
-  $files = scandir("../users/");
-  for ($i=2; $i < count($files) ; $i++) {
-    // add $user in session
-    echo "<p><a href= \"../users/" .$files[$i]. "\"download>" . $files[$i]. "</a>";
-  }
+// if((!isset($_SESSION['login_user']))||(!isset($_SESSION['login_pass']))){
+//   header("location: ../index.php");
+// }
+// echo $_SESSION['login_user'];
+// echo $_SESSION['login_pass'];
+
+header('Content-Type: application/json');
+
+$aResult = array();
+
+if( !isset($_POST['functionname']) ) { $aResult['error'] = 'No function name!'; }
+
+if( !isset($aResult['error']) ) {
+    switch($_POST['functionname']) {
+        case 'profile':
+              //$files = scandir("../users/".$_SESSION['login_user']);
+              $files = scandir("../users/test/test");
+              $aResult['result'] = $files;
+           break;
+         case 'test':
+            $aResult['result'] = 'yes';
+          break;
+        default:
+           $aResult['error'] = 'What are you doing'.$_POST['functionname'].'!';
+           break;
+    }
+}
+header("HTTP/1.1 201 Success");
+echo json_encode($aResult);
+
 ?>
-</head>
-</html>
