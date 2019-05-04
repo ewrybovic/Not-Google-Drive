@@ -16,9 +16,14 @@ if( !isset($_POST['functionname']) ) { $aResult['error'] = 'No function name!'; 
 if( !isset($aResult['error']) ) {
     switch($_POST['functionname']) {
         case 'profile':
-              //$files = scandir("../users/".$_SESSION['login_user']);
-              $files = scandir("../users/test/test");
-              $aResult['result'] = $files;
+              //$files = scandir("../users/".$_SESSION['login_user']."/");
+              $files = scandir("../users/test/");
+              //$aResult['directory'] = "file:///".dirname(getcwd())."/users/test/";
+              $aResult['directory'] = "file:////users/test/";
+
+              //$files = scandir("/home/server/Desktop/test");
+              //$aResult['directory'] = "file:////home/server/Desktop/test/";
+             $aResult['result'] = $files;
            break;
          case 'test':
             $aResult['result'] = 'yes';

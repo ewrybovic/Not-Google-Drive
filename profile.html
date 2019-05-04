@@ -95,10 +95,11 @@
                           // if no errors, we got the list of files, append them to the table
                           if( !('error' in obj) ) {
                               var fileList = obj.result;
+                              var fileDirectory = obj.directory;
                               var fileHTML = "";
-                              
                               for(var i=2; i<fileList.length; i++){console.log(fileList[i]);
-                                fileHTML += "<tr><td><a href=\"../users/test/test/"+fileList[i]+"\" download>"+fileList[i]+"</a></td><td>Chris</td><td>Today</td></tr>";
+                                console.log(fileDirectory);
+                                fileHTML += "<tr><td><a href=\"" +fileDirectory+fileList[i]+"\" download>"+fileList[i]+"</a></td><td>Chris</td><td>Today</td></tr>";
                               }
                               $('#myTable').append(fileHTML);
                           }

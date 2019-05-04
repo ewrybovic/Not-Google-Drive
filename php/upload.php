@@ -4,11 +4,12 @@
 */
 
 // Get current directory of php script
-//$target_dir = getcwd();// . "/users/";
+//$target_dir = "/var/www/html/Not-Google-Drive/not-google-drive/users/test/";// . "/users/";
 //$target_dir = "/var/www/html/users/";
 //$target_dir = "/home/server/Desktop/";
-$target_dir = "/var/www/html/users/test/test/";
+//$target_dir = "/var/www/html/users/test/test/";
 // Concatinate the target directory and the file name
+$target_dir = dirname(getcwd())."/users/";
 $target_file_dir = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
 if(isset($_POST["submit"]))
