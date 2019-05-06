@@ -78,7 +78,6 @@
       <thead>
         <tr>
           <th>Filename</th>
-          <th>Author</th>
           <th>Last Modified</th>
         </tr>
       </thead>
@@ -88,19 +87,14 @@
       <?php
       session_start();
 
-      $target_dir = "/var/www/html/users/". $_SESSION['login_user'] . "/";
+      $target_dir = "users/". $_SESSION['login_user'] . "/";
 
       $files = scandir("$target_dir");
 
-        for ($i=0; $i < count($files) ; $i++) {
+        for ($i=2; $i < count($files) ; $i++) {
           // code...
 
-          ?>
-          <p>
-            <a  download="<?php echo $files[$i]?>" href="$target_dir<?php echo $files[$i]?>"><?php echo $files[$i]?></a>
-          </p>
-
-          <?php
+          echo "<p><a href= \"$target_dir" .$files[$i]. "\"download>" . $files[$i]. "</a>";
         }
       ?>
   </div>
