@@ -23,6 +23,9 @@ body {
   font-size: 1.5rem;
 }
 
+.file{
+  background-color: white;
+}
 .card-signin .card-body {
   padding: 2rem;
 }
