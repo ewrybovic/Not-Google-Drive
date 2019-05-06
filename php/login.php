@@ -51,7 +51,7 @@
       echo "found users";
       $_SESSION['login_user'] = $username;
       $_SESSION['login_pass'] = $password;
-      header("location:../profile.html");
+      header("location:../profile.php");
     }
     else {
       echo "no users in database";
