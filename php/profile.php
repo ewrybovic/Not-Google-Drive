@@ -1,6 +1,6 @@
 <?php
 include ('login.php');
-
+session_start();
 // if((!isset($_SESSION['login_user']))||(!isset($_SESSION['login_pass']))){
 //   header("location: ../index.php");
 // }
