@@ -56,13 +56,12 @@
 
     <br /><br /><br />
 
-    <!-- upload form -->
-    <span style="width:50%">
-      <form action="php/upload.php" method="post" enctype="multipart/form-data">Select file to upload:
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="submit" name="submit" value="Upload File">
-      </form>
-    </span>
+        <form action="php/upload.php" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" name="submit" value="Upload File">
+          </div>
+        </form>
 
     <br /><br /><br />
 
@@ -80,23 +79,45 @@
           <th>Filename</th>
           <th>Last Modified</th>
         </tr>
+        <?php
+        session_start();
+        $folder_name = $_SESSION['login_user'];
+        echo "Folder's name: ";
+        echo "$folder_name"."/";
+        echo "<br>";
+        echo "Total files count: ";
+        $target_dir = "users/". $_SESSION['login_user'] . "/";
+        $files = scandir("$target_dir");
+        $index_count = count($files)-2;
+        print ("$index_count files<br>\n");
+        print("<table>\n");
+        clearstatcache();
+          for ($i=2; $i < count($files) ; $i++) {
+            // code...
+            print("<tr>");
+            print("<th>");
+            echo "<a href= \"$target_dir" .$files[$i]. "\"download>" . $files[$i]. "</a>";
+            print("</th>");
+
+            print("<th>");
+            echo "". date ("F d Y H:i:s.", filemtime("var/www/html/users/".$_SESSION['login_user']. "/".$files[$i]));
+
+            print("</th>");
+
+            print("<th>");
+            echo "". filesize($files[$i]) . " bytes";
+            print("</th>");
+
+            print("</tr>");
+
+          }
+        print("</table>\n");
+        ?>
       </thead>
 
     </table>
 
-      <?php
-      session_start();
 
-      $target_dir = "users/". $_SESSION['login_user'] . "/";
-
-      $files = scandir("$target_dir");
-
-        for ($i=2; $i < count($files) ; $i++) {
-          // code...
-
-          echo "<p><a href= \"$target_dir" .$files[$i]. "\"download>" . $files[$i]. "</a>";
-        }
-      ?>
   </div>
 </section>
 
