@@ -27,7 +27,7 @@ if(isset($_POST["submit"]))
 		echo "<p>The file " . basename($_FILES['fileToUpload']['name']) . " has been uploaded<p>";
 
 		// Redirect back to profile page
-		header("Location:profile.html");
+		header("Location:../profile.html");
 		exit();
 	}
 	else
