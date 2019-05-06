@@ -56,8 +56,20 @@
     
     <br /><br /><br />
 
+    <!-- upload form -->
+    <span style="width:50%">
+      <form action="php/upload.php" method="post" enctype="multipart/form-data">Select file to upload: 
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" name="submit" value="Upload File">
+      </form>
+    </span>
+
+    <br /><br /><br />
+
     <!-- search bar -->
-    <input id="myInput" type="text" placeholder="Type the file name here to search" style="width:300px;"></input>
+    <span style="width:50%"><input id="myInput" type="text" placeholder="Type the file name here to search" style="width:300px;"></input>
+    </span>
+    
     
     <br /><br />
 
@@ -71,48 +83,69 @@
         </tr>
       </thead>
       <tbody id="myTable">
-        <tr class="file-row">
-          <td><span class="file"><a href="profile.html">Test file</a></span></td>
-          <td>Chris</td> 
-          <td>Today</td>
-        </tr>
-        <tr class="file-row">
-          <td><span class="file"><a href="profile.html">Test file</a></span></td>
-          <td>Chris</td> 
-          <td>Today</td>
-        </tr>
-        <tr class="file-row">
-          <td><a href="profile.html">Test file</a></td>
-          <td>Chris</td> 
-          <td>Today</td>
-        </tr>
+
+      <!-- get file list -->
       <script type="text/javascript">
-          document.write("<tr><td><a href=\"profile.html\">jsjsjsj</a></td><td>Chris</td><td>Today</td></tr>");
-          document.write("<tr><td><a href=\"profile.html\">jsjsjsj</a></td><td>Chris</td><td>Today</td></tr>");
-          document.write("<tr><td><a href=\"profile.html\">jsjsjsj</a></td><td>Chris</td><td>Today</td></tr>");
-          document.write("<tr><td><a href=\"profile.html\">jsjsjsj</a></td><td>Chris</td><td>Today</td></tr>");
-      </script> 
-      <script> 
-        jQuery.ajax({
+          jQuery.ajax({
             type: "POST",
             url: 'php/profile.php',
             dataType: 'json',
             data: {functionname: 'profile'},
             success: function (obj, textstatus) {
-                          // if no errors, we got the list of files
+                          // if no errors, we got the list of files, append them to the table
                           if( !('error' in obj) ) {
-                              var fileList = obj.files;
-                              fileList.forEach(function(file)){
-                                 document.write("<tr><td><a href=\"profile.html\">"+file+"</a></td><td>Chris</td><td>Today</td></tr>");
+                              var fileList = obj.result;
+                              var fileDirectory = obj.directory;
+                              var fileHTML = "";
+                              for(var i=2; i<fileList.length; i++){console.log(fileList[i]);
+                                console.log(fileDirectory);
+                                fileHTML += "<tr><td><a href=\"" +fileDirectory+fileList[i]+"\" download>"+fileList[i]+"</a></td><td>Chris</td><td>Today</td></tr>";
                               }
+                              $('#myTable').append(fileHTML);
                           }
                           // if we got errors, don't print anything
                           else {
+                              console.log("LOSELOSEOSEOSLE");
                               console.log(obj.error);
-                              document.write("xyxyxyxyxyxyxy");
                           }
                     }
           });
+      </script> 
+      <script> 
+        function download(filename){
+          jQuery.ajax({
+            type: "POST",
+            url: 'php/profile.php',
+            dataType: 'json',
+            data: {functionname: 'download', arguments: filename},
+            success: function (obj, textstatus) {
+                          // if no errors, we got the list of files
+                          if( !('error' in obj) ) {
+                              console.log("WINWINWIWN");
+                          }
+                          // if we got errors, don't print anything
+                          else {
+                              console.log("LOSELOSEOSEOSLE");
+                          }
+                    }
+          });
+        }
+        // jQuery.ajax({
+        //     type: "POST",
+        //     url: 'php/profile.php',
+        //     dataType: 'json',
+        //     data: {functionname: 'test'},
+        //     success: function (obj, textstatus) {
+        //                   // if no errors, we got the list of files
+        //                   if( !('error' in obj) ) {
+        //                       console.log("WINWINWIWN");
+        //                   }
+        //                   // if we got errors, don't print anything
+        //                   else {
+        //                       console.log("LOSELOSEOSEOSLE");
+        //                   }
+        //             }
+        //   });
       </script>
      </tbody>
     </table>
