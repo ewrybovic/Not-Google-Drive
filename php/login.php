@@ -22,7 +22,7 @@
   }
 
   //connect to db
-  $dbName = "test";
+  $dbName = "Users";
   $connectToDB = mysqli_select_db($link, $dbName) or die ("Unable to connect to host $hostName");
 
   function clean_input($data)
@@ -51,7 +51,7 @@
       echo "found users";
       $_SESSION['login_user'] = $username;
       $_SESSION['login_pass'] = $password;
-      header("location:profile.html");
+      header("location:../profile.html");
     }
     else {
       echo "no users in database";
