@@ -28,11 +28,12 @@
 		}
 		else
 		{
-			$didWork["error"] = "no_file";
+			$didWork["error"] = "no_file " .$filePath;
 		}
 
 		return $didWork;
 	}
+deleteFile("/var/www/html/".$_GET['name']);
+header("Location:../profile.php");
 
-//var_dump(deleteFile("test.txt"));
 ?>
