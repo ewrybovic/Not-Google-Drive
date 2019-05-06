@@ -66,14 +66,14 @@
     <br /><br /><br />
 
     <!-- search bar -->
-    <span style="width:50%"><input id="myInput" type="text" placeholder="Type the file name here to search" style="width:300px;"></input>
+    <span style="width:50%"><input id="input" type="text" onkeyup="SearchFunction()" placeholder="Type the file name here to search" style="width:300px;"></input>
     </span>
 
 
     <br /><br />
 
     <!-- file list -->
-    <table class="table table-sm table-striped" style="width:100%">
+    <table class="table table-sm table-striped" style="width:100%" id="list">
       <thead>
         <tr>
           <th>Filename</th>
@@ -197,7 +197,50 @@
   <script src="js/freelancer.min.js"></script>
 
 
+<script>
+function SearchFunction()
+{
+   // Get input from textbox
+  var input = document.getElementById('input').value;
+  list = document.getElementById('list');
+  if (input)
+  {
+    //list.innerHTML += jsonData;
+    //for(var i = 0; i < filenames.length; ++i)
+    //elements.forEach(function(filename)
+    //for(i =0; i < list.length; i++)
+    // Set row to 1 to not include the header
+    var r = 1;
+    while(row = list.rows[r++])
+    {
+      
 
+      var filename = row.cells[0].getElementsByTagName("a")[0];
+      filename = filename.textContent || filename.innerHTML;
+      console.log(filename);
+
+      // Check if input is in the filename
+      if (filename.indexOf(input) > -1)
+      {
+        row.style.display = "";
+      }
+      else
+      {
+        row.style.display = "none";
+      }
+    }
+  }
+  else
+  {
+    var r = 1;
+    while(row = list.rows[r++])
+    {
+      row.style.display = "";
+      
+    }    
+  }
+}
+</script> 
 </body>
 
 </html>
