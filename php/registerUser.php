@@ -4,7 +4,7 @@ MSG:
 <?php
 	// remove comments/echos and clean up before merging to master
 	//connect to server
-	$debugMode = false;
+	$debugMode = true;
 	$hostName = "localhost";
 	$userName = "server";
 	$password = "1234567890";
@@ -15,7 +15,7 @@ MSG:
 		die ("Connection Failed:" . mysqli_connect_error());	
 	}
 	//connect to db
-	$dbName = "test";
+	$dbName = "Users";
 	$connectToDB = mysqli_select_db($link, $dbName) or die ("Unable to connect to host $hostName");
 
 	// get information from forms and prep for db queary
