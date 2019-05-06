@@ -78,6 +78,7 @@
         <tr>
           <th>Filename</th>
           <th>Last Modified</th>
+          <th>Size</th>
         </tr>
         <?php
         session_start();
@@ -90,28 +91,27 @@
         $files = scandir("$target_dir");
         $index_count = count($files)-2;
         print ("$index_count files<br>\n");
-        print("<table>\n");
         clearstatcache();
           for ($i=2; $i < count($files) ; $i++) {
             // code...
-            print("<tr>");
-            print("<th>");
+            echo "<tr class = 'file'>";
+            echo "<th>";
             echo "<a href= \"$target_dir" .$files[$i]. "\"download>" . $files[$i]. "</a>";
-            print("</th>");
+            echo "</th>";
 
-            print("<th>");
-            echo "". date ("F d Y H:i:s.", filemtime("var/www/html/users/".$_SESSION['login_user']. "/".$files[$i]));
+            echo "<th>";
+            echo "". date ("F d Y H:i:s.", filemtime($target_dir."/".$files[$i]));
 
-            print("</th>");
+            echo "</th>";
 
-            print("<th>");
-            echo "". filesize($files[$i]) . " bytes";
-            print("</th>");
+            echo "<th>";
+            echo "". filesize($target_dir."/".$files[$i]) . " bytes";
+            echo "</th>";
 
-            print("</tr>");
+            echo "</tr>";
 
           }
-        print("</table>\n");
+
         ?>
       </thead>
 
