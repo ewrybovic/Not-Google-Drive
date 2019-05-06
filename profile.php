@@ -79,6 +79,7 @@
           <th>Filename</th>
           <th>Last Modified</th>
           <th>Size</th>
+          <th>Delete</th>
         </tr>
         <?php
         session_start();
@@ -106,6 +107,11 @@
 
             echo "<th>";
             echo "". filesize($target_dir."/".$files[$i]) . " bytes";
+            echo "</th>";
+
+
+            echo "<th>";
+            echo "<a href ='php/delete_file.php?name=$target_dir"."$files[$i]' name= 'delete'>Delete</a>";
             echo "</th>";
 
             echo "</tr>";
