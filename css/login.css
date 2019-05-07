@@ -17,6 +17,18 @@ body {
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
+.download{
+  display: center;
+  text-align: center;
+}
+.inputLogin{
+  width: 35%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border:1px solid #ccc;
+  box-sizing: border-box;
+}
 .card-signin .card-title {
   margin-bottom: 2rem;
   font-weight: 300;
