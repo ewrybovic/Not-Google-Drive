@@ -47,6 +47,15 @@ body {
 .file{
   background-color: white;
 }
+
+.file:nth-child(even){
+  background-color: #f2f2f2;
+}
+
+.file:hover {
+  background-color: #ddd;
+}
+
 .card-signin .card-body {
   padding: 2rem;
 }
