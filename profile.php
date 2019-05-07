@@ -57,16 +57,17 @@
     <br /><br /><br />
 
         <form action="php/upload.php" method="post" enctype="multipart/form-data">
-          <div class="form-group">
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" name="submit" value="Upload File">
+          <div class="download">
+            <input class="inputLogin" type="file" name="fileToUpload" id="fileToUpload" required>
+            <input class="inputLogin" type="submit" name="submit" value="Upload File">
+            <input class="inputLogin" id="input" type="text" onkeyup="SearchFunction()" placeholder="Type the file name here to search" style="width:300px;"></input>
           </div>
         </form>
 
     <br /><br /><br />
 
     <!-- search bar -->
-    <span style="width:50%"><input id="input" type="text" onkeyup="SearchFunction()" placeholder="Type the file name here to search" style="width:300px;"></input>
+    <span style="width:50%">
     </span>
 
 
@@ -76,10 +77,10 @@
     <table class="table table-sm table-striped" style="width:100%" id="list">
       <thead>
         <tr>
-          <th>Filename</th>
-          <th>Last Modified</th>
-          <th>Size</th>
-          <th>Delete</th>
+          <th><h4>Filename</h4></th>
+          <th><h4>Last Modified</h4></th>
+          <th><h4>Size</h4></th>
+          <th><h4>Delete</h4></th>
         </tr>
         <?php
         session_start();
@@ -213,7 +214,7 @@ function SearchFunction()
     var r = 1;
     while(row = list.rows[r++])
     {
-      
+
 
       var filename = row.cells[0].getElementsByTagName("a")[0];
       filename = filename.textContent || filename.innerHTML;
@@ -236,11 +237,11 @@ function SearchFunction()
     while(row = list.rows[r++])
     {
       row.style.display = "";
-      
-    }    
+
+    }
   }
 }
-</script> 
+</script>
 </body>
 
 </html>
