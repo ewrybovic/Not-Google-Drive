@@ -16,7 +16,10 @@ body {
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
-
+.table-header{
+  background-color: #2C3E50;
+  color: white;
+}
 .download{
   display: center;
   text-align: center;
@@ -28,6 +31,12 @@ body {
   display: inline-block;
   border:1px solid #ccc;
   box-sizing: border-box;
+}
+.table{
+  border-radius: 5px;
+  width: 50%;
+  margin: 0px auto;
+  float: none;
 }
 .card-signin .card-title {
   margin-bottom: 2rem;
