@@ -86,6 +86,12 @@
         </tr>
         <?php
         session_start();
+	// If the users session times out then redirect to the login page
+        if (!isset($_SESSION['login_user']))
+        {
+          header("Location:login.html");
+          exit();
+	}
         $folder_name = $_SESSION['login_user'];
         echo "<br>";
         echo "<h5 style='text-align:center;'>Folder's name: ";
