@@ -41,6 +41,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+          <li>
+            <?php
+              session_start();
+              $user_name = $_SESSION['login_user'];
+              echo "<a style= 'color:white;' class='nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger'>"."Welcome "."$user_name"."</a>";
+             ?>
+          </li>
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="login.html">Log Out</a>
           </li>
@@ -59,40 +66,36 @@
         <form action="php/upload.php" method="post" enctype="multipart/form-data">
           <div class="download">
             <input class="inputLogin" type="file" name="fileToUpload" id="fileToUpload" required>
-            <input class="inputLogin" type="submit" name="submit" value="Upload File">
+            <input class="upload-button" type="submit" name="submit" value="Upload File">
             <input class="inputLogin" id="input" type="text" onkeyup="SearchFunction()" placeholder="Type the file name here to search" style="width:300px;"></input>
           </div>
         </form>
-
-    <br /><br /><br />
 
     <!-- search bar -->
     <span style="width:50%">
     </span>
 
-
-    <br /><br />
-
     <!-- file list -->
-    <table class="table table-sm table-striped" style="width:100%" id="list">
+    <table class="table table-bordered"  id="list">
       <thead>
-        <tr>
-          <th><h4>Filename</h4></th>
-          <th><h4>Last Modified</h4></th>
-          <th><h4>Size</h4></th>
-          <th><h4>Delete</h4></th>
+        <tr class="table-header">
+          <th><h5>Filename</h5></th>
+          <th><h5>Last Modified</h5></th>
+          <th><h5>Size</h5></th>
+          <th><h5>Delete</h5></th>
         </tr>
         <?php
         session_start();
         $folder_name = $_SESSION['login_user'];
-        echo "Folder's name: ";
-        echo "$folder_name"."/";
         echo "<br>";
-        echo "Total files count: ";
+        echo "<h5 style='text-align:center;'>Folder's name: ";
+        echo "$folder_name"."/</h5>";
+        echo "<h5 style='text-align:center;'>Total files count: ";
         $target_dir = "users/". $_SESSION['login_user'] . "/";
         $files = scandir("$target_dir");
         $index_count = count($files)-2;
-        print ("$index_count files<br>\n");
+        print ("$index_count files<br>\n</h5>");
+        echo "<br>";
         clearstatcache();
           for ($i=2; $i < count($files) ; $i++) {
             // code...
