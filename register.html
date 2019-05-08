@@ -88,12 +88,18 @@
                 <hr>
 
                 <div class="form-label-group">
-                  <input type="password" name="inputPassword" id="inputPassword" class="form-control" required>
+                  <ul>
+                    <li>At least one uppercase</li>
+                    <li>At least one lowercase</li>
+                    <li>At least one number</li>
+                    <li>At leasdt 7 characters</li>
+                  </ul>
+                  <input type="password" name="inputPassword" id="inputPassword" class="form-control" pattern="^(.{0,7}|[^0-9]|[^A-Z]|[^a-z]|[a-zA-Z0-9])$" required>
                   <label for="inputPassword">Password</label>
                 </div>
 
                 <div class="form-label-group">
-                  <input type="password" name="inputConfirmPw" id="inputConfirmPassword" class="form-control" required>
+                  <input type="password" name="inputConfirmPw" id="inputConfirmPassword" class="form-control"  required>
                   <label for="inputConfirmPassword">Confirm password</label>
                 </div>
 
