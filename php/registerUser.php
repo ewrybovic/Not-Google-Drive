@@ -119,7 +119,7 @@ MSG:
 
 	} else
 	{
-		echo ("invalid form data|X");
+		header("Location:../register.html");
 		// add buttons to return 
 	}
 

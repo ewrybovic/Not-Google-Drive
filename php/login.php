@@ -54,7 +54,8 @@
       header("location:../profile.php");
     }
     else {
-      echo "no users in database";
+      header("Location:../login.html");
+      exit();
     }
 
   }
